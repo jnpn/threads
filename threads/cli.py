@@ -7,6 +7,10 @@ Be creative! do whatever you want!
 - Start a web application
 - Import things from your .base module
 """
+import time
+
+from .ascii import rerender
+from .threads import Monitor, Dummy
 
 
 def main():  # pragma: no cover
@@ -25,4 +29,11 @@ def main():  # pragma: no cover
         * List all available tasks
         * Run an application (Flask, FastAPI, Django, etc.)
     """
-    print("This will do something")
+    ts = [Dummy() for _ in range(4)]
+    m = Monitor(ts)
+    m.start()
+    for t in ts:
+        t.start()
+
+    time.sleep(5)
+    m.toggle()
